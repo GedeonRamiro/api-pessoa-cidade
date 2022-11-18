@@ -102,4 +102,3 @@
   },
   "exclude": ["./jest.config.ts", "./node_modules", "./tests", "./build"]
 }
-"typeRoots": ["node_modules/yup"],
