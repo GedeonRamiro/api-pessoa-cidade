@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
+import { ICidade } from "../../database/models";
 
 import { validation } from "../../shared/middleware";
 
 interface IParamProps {
   id?: number;
 }
-interface IBodyProps {
-  nome: string;
-}
+
+interface IBodyProps extends Omit<ICidade, "id"> {}
 
 export const updateByIdValidation = validation((getSchema) => ({
   body: getSchema<IBodyProps>(
@@ -25,7 +25,7 @@ export const updateByIdValidation = validation((getSchema) => ({
 }));
 
 export const UpdateById = async (
-  req: Request<IParamProps, {}, IBodyProps>,
+  req: Request<IParamProps, {}, ICidade>,
   res: Response
 ) => {
   if (Number(req.params.id) === 99999)
