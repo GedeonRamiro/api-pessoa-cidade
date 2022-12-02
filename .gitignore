@@ -4,4 +4,4 @@
 /build
 /coverage
 
-.sqlite
+*.sqlite
