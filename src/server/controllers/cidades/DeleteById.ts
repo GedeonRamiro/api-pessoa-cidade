@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
+import { CidadesProviders } from "../../database/providers/cidades";
 
 import { validation } from "../../shared/middleware";
 
@@ -17,12 +18,15 @@ export const deleteByIdValidation = validation((getSchema) => ({
 }));
 
 export const deleteById = async (req: Request<IParamProps>, res: Response) => {
-  if (Number(req.params.id) === 99999)
+  const result = await CidadesProviders.deleteById(Number(req.params.id));
+
+  if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
-        default: "Registro não encontrado",
+        default: result.message,
       },
     });
+  }
 
-  return res.status(StatusCodes.NO_CONTENT).send();
+  return res.status(StatusCodes.NO_CONTENT).json();
 };

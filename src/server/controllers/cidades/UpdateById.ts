@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 import { ICidade } from "../../database/models";
+import { CidadesProviders } from "../../database/providers/cidades";
 
 import { validation } from "../../shared/middleware";
 
@@ -28,12 +29,18 @@ export const UpdateById = async (
   req: Request<IParamProps, {}, ICidade>,
   res: Response
 ) => {
-  if (Number(req.params.id) === 99999)
+  const result = await CidadesProviders.updateById(
+    Number(req.params.id),
+    req.body
+  );
+
+  if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
-        default: "Registro não encontrado",
+        default: result.message,
       },
     });
+  }
 
   return res.status(StatusCodes.NO_CONTENT).send();
 };

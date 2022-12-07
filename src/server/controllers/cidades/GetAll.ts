@@ -28,7 +28,7 @@ export const getAll = async (
   /*  res.setHeader("access-control-expose-header", "x-total-count");
   res.setHeader("x-total-count", 1); */
 
-  const result = await CidadesProviders.getAll();
+  const result = await CidadesProviders.getAll(1, 10, "", 0);
 
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
