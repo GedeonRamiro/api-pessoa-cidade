@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
-import { CidadesProviders } from "../../database/providers/cidades";
 
+import { CidadesProviders } from "../../database/providers/cidades";
 import { validation } from "../../shared/middleware";
 
 interface IParamProps {
@@ -18,7 +18,15 @@ export const deleteByIdValidation = validation((getSchema) => ({
 }));
 
 export const deleteById = async (req: Request<IParamProps>, res: Response) => {
-  const result = await CidadesProviders.deleteById(Number(req.params.id));
+  if (!req.params.id) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: 'O parâmetro "id" precisa ser informado.',
+      },
+    });
+  }
+
+  const result = await CidadesProviders.deleteById(req.params.id);
 
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -28,5 +36,5 @@ export const deleteById = async (req: Request<IParamProps>, res: Response) => {
     });
   }
 
-  return res.status(StatusCodes.NO_CONTENT).json();
+  return res.status(StatusCodes.NO_CONTENT).send();
 };

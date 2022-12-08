@@ -11,7 +11,7 @@ describe("Cidades - GetAll", () => {
 
     const resultSearch = await testServer.get("/cidades").send();
 
-    //expect(Number(resultSearch.header["x-total-count"])).toBeGreaterThan(0);
+    expect(Number(resultSearch.header["x-total-count"])).toBeGreaterThan(0);
     expect(resultSearch.statusCode).toEqual(StatusCodes.OK);
     expect(resultSearch.body.length).toBeGreaterThan(0);
   });

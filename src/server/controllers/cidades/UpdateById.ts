@@ -29,10 +29,15 @@ export const UpdateById = async (
   req: Request<IParamProps, {}, ICidade>,
   res: Response
 ) => {
-  const result = await CidadesProviders.updateById(
-    Number(req.params.id),
-    req.body
-  );
+  if (!req.params.id) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: 'O parâmetro "id" precisa ser informado.',
+      },
+    });
+  }
+
+  const result = await CidadesProviders.updateById(req.params.id, req.body);
 
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -42,5 +47,5 @@ export const UpdateById = async (
     });
   }
 
-  return res.status(StatusCodes.NO_CONTENT).send();
+  return res.status(StatusCodes.NO_CONTENT).json(result);
 };
