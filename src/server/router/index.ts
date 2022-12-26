@@ -49,4 +49,10 @@ router.get(
   PessoasController.getById
 );
 
+router.delete(
+  "/pessoas/:id",
+  PessoasController.deleteByIdValidation,
+  PessoasController.deleteById
+);
+
 export { router };
