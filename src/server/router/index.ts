@@ -43,4 +43,10 @@ router.post(
   PessoasController.create
 );
 
+router.get(
+  "/pessoas/:id",
+  PessoasController.getByIdValidation,
+  PessoasController.getById
+);
+
 export { router };
