@@ -1,7 +1,7 @@
 import { ETableNames } from "../../ETableNames";
 import { Knex } from "../../knex";
 
-export const count = async (filter: ""): Promise<number | Error> => {
+export const count = async (filter = ""): Promise<number | Error> => {
   try {
     const [{ count }] = await Knex(ETableNames.cidade)
       .where("nome", "like", `%${filter}%`)

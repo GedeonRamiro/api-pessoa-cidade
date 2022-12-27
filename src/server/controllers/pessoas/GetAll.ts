@@ -14,10 +14,9 @@ interface IQueryProps {
 export const getAllValidation = validation((getSchema) => ({
   query: getSchema<IQueryProps>(
     yup.object().shape({
-      page: yup.number().notRequired().moreThan(0),
-      limit: yup.number().notRequired().moreThan(0),
-      filter: yup.string().notRequired(),
-      id: yup.number().integer().notRequired().default(0),
+      page: yup.number().integer().notRequired().moreThan(0).default(1),
+      limit: yup.number().notRequired().moreThan(0).default(10),
+      filter: yup.string().notRequired().default(""),
     })
   ),
 }));
@@ -32,7 +31,7 @@ export const getAll = async (
     req.query.filter || ""
   );
 
-  const count = await PessoasPoviders.count("");
+  const count = await PessoasPoviders.count(req.query.filter);
 
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
