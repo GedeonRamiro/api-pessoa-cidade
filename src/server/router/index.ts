@@ -37,10 +37,10 @@ router.delete(
   CidadesController.deleteById
 );
 
-router.post(
+router.get(
   "/pessoas",
-  PessoasController.createValidation,
-  PessoasController.create
+  PessoasController.getAllValidation,
+  PessoasController.getAll
 );
 
 router.get(
@@ -49,10 +49,22 @@ router.get(
   PessoasController.getById
 );
 
+router.post(
+  "/pessoas",
+  PessoasController.createValidation,
+  PessoasController.create
+);
+
 router.delete(
   "/pessoas/:id",
   PessoasController.deleteByIdValidation,
   PessoasController.deleteById
+);
+
+router.put(
+  "/pessoas/:id",
+  PessoasController.updateByIdValidation,
+  PessoasController.UpdateById
 );
 
 export { router };
