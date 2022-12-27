@@ -9,7 +9,6 @@ interface IQueryProps {
   page?: number;
   limit?: number;
   filter?: string;
-  id?: number;
 }
 
 export const getAllValidation = validation((getSchema) => ({
@@ -30,8 +29,7 @@ export const getAll = async (
   const result = await PessoasPoviders.getAll(
     req.query.page || 1,
     req.query.limit || 10,
-    req.query.filter || "",
-    Number(req.query.id)
+    req.query.filter || ""
   );
 
   const count = await PessoasPoviders.count("");
