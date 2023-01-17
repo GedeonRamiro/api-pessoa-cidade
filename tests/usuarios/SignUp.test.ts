@@ -2,7 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import { testServer } from "../jest.setup";
 
 describe("Usuarios - SignUp", () => {
-  it("Cadastrar usuário 01", async () => {
+  it("Cadastrar usuário", async () => {
     const resultCreate = await testServer.post("/cadastrar").send({
       nome: "Gedeon",
       email: "gedeon@hotmail.com",
