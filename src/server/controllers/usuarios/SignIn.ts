@@ -5,6 +5,7 @@ import { IUsuario } from "../../database/models";
 import { UsuariosPoviders } from "../../database/providers/usuarios";
 
 import { validation } from "../../shared/middleware/Validation";
+import { PasswordCrypto } from "../../shared/services";
 
 interface IBodyProps extends Omit<IUsuario, "id" | "nome"> {}
 
@@ -33,7 +34,12 @@ export const signIn = async (
     });
   }
 
-  if (senha !== result.senha) {
+  const passwordMatch = await PasswordCrypto.verifyPasswords(
+    senha,
+    result.senha
+  );
+
+  if (!passwordMatch) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
       errors: {
         default: "Senha ou senha são inválidos",
