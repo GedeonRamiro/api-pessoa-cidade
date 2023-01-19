@@ -9,7 +9,7 @@ import { endureAuthenticated } from "../shared/middleware/EndureAuthenticated";
 
 const router = Router();
 
-router.get("/", endureAuthenticated, (_, res) => {
+router.get("/", (_, res) => {
   return res.send("Olá, DEV!");
 });
 
