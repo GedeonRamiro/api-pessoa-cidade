@@ -11,8 +11,7 @@
     "knex:rollback-all": "knex --knexfile ./src/server/database/knex/Environment.ts migrate:rollback --all",
     "knex:rollback": "knex --knexfile ./src/server/database/knex/Environment.ts migrate:rollback",
     "knex:migrate": "knex --knexfile ./src/server/database/knex/Environment.ts migrate:latest",
-    "knex:seed": "knex --knexfile ./src/server/database/knex/Environment.ts seed:run",
-    "build:digitalOcean": "yarn install --production=false && rimraf dist && yarn build && yarn install --production --frozen-lockfile"
+    "knex:seed": "knex --knexfile ./src/server/database/knex/Environment.ts seed:run"
   },
   "author": "Gedeon Ramiro",
   "license": "ISC",
